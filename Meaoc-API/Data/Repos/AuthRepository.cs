@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Meaoc_API.Data.Models;
@@ -23,6 +24,65 @@ namespace Meaoc_API.Data.Repos
         public async Task<bool> EmailExists(string email)
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
+        }
+        public User Authenticate(string email, string password)
+        {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                return null;
+            }
+
+            var user = _context.Users.SingleOrDefault(u => u.Email == email);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (!VerifyPasswordhash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        private bool VerifyPasswordhash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            if (password == null) 
+            {
+                throw new ArgumentNullException("Password cannot be null");
+            }
+            
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Password cannot be empty or whitespace - only letters allowed");
+            }
+
+            if (passwordHash.Length != 64)
+            {
+                throw new ArgumentException("Invalid hash length. Must be 64 bytes");
+            }
+
+            if (passwordSalt.Length != 128)
+            {
+                throw new ArgumentException("Invalid password salt. Must be 128 bytes");
+            }
+
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

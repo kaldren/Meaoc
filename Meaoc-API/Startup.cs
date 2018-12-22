@@ -15,6 +15,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Meaoc_API.Data.Repos.Interfaces;
 using Meaoc_API.Data.Repos;
+using Meaoc_API.Helpers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Meaoc_API
 {
@@ -30,12 +34,54 @@ namespace Meaoc_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
             services.AddDbContext<MeaocContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("MeaocContext"))
             );
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddAutoMapper();
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // Jwt Authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x => 
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x => 
+            {
+                x.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context => 
+                    {
+                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+                        var userId = int.Parse(context.Principal.Identity.Name);
+                        var user = userRepository.GetById(userId);
+
+                        if (user == null)
+                        {
+                            context.Fail("Unauthorized");
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAuthRepository, AuthRepository>();
         }
@@ -54,6 +100,14 @@ namespace Meaoc_API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
+
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

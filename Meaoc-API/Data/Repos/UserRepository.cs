@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Meaoc_API.Data.Repos.Interfaces;
 using Meaoc_API.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Meaoc_API.Data.Repos
 {
@@ -41,7 +42,7 @@ namespace Meaoc_API.Data.Repos
 
         public async Task<User> GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public void Update(User user, string password = null)
