@@ -70,6 +70,7 @@ namespace Meaoc_API.Controllers
             {
                 return BadRequest(
                     new BaseApiResponse(HttpStatusCode.BadRequest, "Invalid user id"));
+                    
             }
 
             // Map to UserDto for security

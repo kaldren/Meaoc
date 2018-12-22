@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using Meaoc_API.Data.Dtos;
 using Meaoc_API.Data.Models;
 using Meaoc_API.Data.Repos.Interfaces;
 using Meaoc_API.Helpers;
+using Meaoc_API.Helpers.ApiResponses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -36,16 +39,15 @@ namespace Meaoc_API.Controllers
         {
             var user = _authRepository.Authenticate(authenticateUserDto.Email, authenticateUserDto.Password);
 
-
-            if (authenticateUserDto == null)
+            if (user == null)
             {
-                var errorResponse = new
-                {
-                    StatusCode = 401,
-                    Error = "Invalid credentials"
-                };
+                return BadRequest(
+                    new BaseApiResponse(HttpStatusCode.Unauthorized,
+                        "Invalid authorization credentials",
+                        new Dictionary<string, string> {
+                            {"Authorization", $"Invalid authorization credentials"},
+                        }));
 
-                return Unauthorized(errorResponse);
             }
 
             // Map to UserDto for security
@@ -55,7 +57,7 @@ namespace Meaoc_API.Controllers
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, userDto.Id.ToString())
                 }),
@@ -66,7 +68,7 @@ namespace Meaoc_API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            var result = new 
+            var result = new
             {
                 Id = userDto.Id,
                 Username = userDto.Username,
@@ -76,6 +78,6 @@ namespace Meaoc_API.Controllers
             };
 
             return Ok(result);
-        } 
+        }
     }
 }
