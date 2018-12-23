@@ -7,22 +7,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
+import { HomeComponent } from './components/home/home/home.component';
+import { MessagesComponent } from './components/home/messages/messages.component';
+import { HomeModule } from './components/home/home.module';
+import { HomeRoutingModule } from './modules/home-routing/home-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     IndexComponent,
-    HomeComponent,
-    LoginFormComponent
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HomeRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    HomeModule
 
   ],
   providers: [],

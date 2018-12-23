@@ -9,6 +9,9 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home/messages" routerLinkActive="active">Messages</a>
+      </li>
       <li class="nav-item" *ngIf="!isUserAuthenticated; else authorizedUser">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Sign in</a>
         </li>
