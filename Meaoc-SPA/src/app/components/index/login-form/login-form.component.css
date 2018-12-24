@@ -1,7 +1,3 @@
-.login-form {
-    margin-top: 100px;
-}
-
 .login-form input[type=email],
 .login-form input[type=password] {
     margin: 20px auto;

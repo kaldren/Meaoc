@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeRoutingModule } from 'src/app/modules/home-routing/home-routing.module';
 import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './messages/messages.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   imports: [

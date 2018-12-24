@@ -7,8 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeModule } from './components/home/home.module';
-import { HomeRoutingModule } from './modules/home-routing/home-routing.module';
 import { IndexModule } from './components/index/index.module';
+import { HomeRoutingModule } from './components/home/home-routing.module';
+import { IndexRoutingModule } from './components/index/index.routing.module';
 
 @NgModule({
   declarations: [
@@ -17,13 +18,13 @@ import { IndexModule } from './components/index/index.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HomeRoutingModule,
     HttpClientModule,
     FormsModule,
     HomeModule,
-    IndexModule
-
+    HomeRoutingModule,
+    IndexModule,
+    IndexRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IndexRoutingModule } from 'src/app/modules/index-routing/index.routing.module';
 import { IndexComponent } from './index/index.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule } from '@angular/forms';
+import { IndexRoutingModule } from './index.routing.module';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   imports: [
       CommonModule,
-      IndexRoutingModule,
-      FormsModule
+      FormsModule,
+      IndexRoutingModule
     ],
   declarations: [
+      WelcomeComponent,
       IndexComponent,
-      LoginFormComponent
+      LoginFormComponent,
+      AboutComponent
   ]
 })
 export class IndexModule { }
