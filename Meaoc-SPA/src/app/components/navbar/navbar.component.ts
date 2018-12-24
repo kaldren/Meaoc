@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit  {
 
-  constructor(private authService: AuthService) { }
-
-  isUserAuthenticated = false;
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.isUserAuthenticated = this.authService.isUserAuthenticated();
+  }
+
+  isUserAuthenticated(): boolean {
+    return this.authService.isUserAuthenticated();
   }
 
   logout() {
     console.log(this.authService.logout());
+    this.router.navigate(['/login']);
   }
 
 }

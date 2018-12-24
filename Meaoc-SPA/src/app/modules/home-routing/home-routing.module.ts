@@ -13,6 +13,7 @@ const homeRouting: Routes = [
     children: [
       {
         path: '',
+        canActivateChild: [AuthGuard],
         children: [
           { path: 'messages', component: MessagesComponent }
         ],

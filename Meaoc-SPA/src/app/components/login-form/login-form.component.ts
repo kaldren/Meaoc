@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthenticateUser } from 'src/app/interfaces/authenticate-user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -13,7 +14,7 @@ export class LoginFormComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router, private change: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -34,6 +35,8 @@ export class LoginFormComponent implements OnInit {
   login(authUser: AuthenticateUser) {
     return this.authService.authenticate(authUser).subscribe((result) => {
       localStorage.setItem('token', result.token);
+      this.change.detectChanges();
+      this.router.navigate(['/home']);
     }, error => {
       console.log(error);
     });

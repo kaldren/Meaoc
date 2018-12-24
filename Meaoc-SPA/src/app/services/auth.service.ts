@@ -17,12 +17,11 @@ export class AuthService {
   }
 
   isUserAuthenticated() {
-    console.log('Log: ', localStorage.getItem('token'));
     return localStorage.getItem('token') ? true : false;
   }
 
-  logout() {
-    if (this.isUserAuthenticated) {
+  logout(): boolean {
+    if (this.isUserAuthenticated()) {
       localStorage.removeItem('token');
       return true;
     }

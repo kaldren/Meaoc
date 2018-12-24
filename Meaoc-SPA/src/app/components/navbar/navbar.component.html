@@ -5,21 +5,32 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home/messages" routerLinkActive="active">Messages</a>
-      </li>
-      <li class="nav-item" *ngIf="!isUserAuthenticated; else authorizedUser">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">Sign in</a>
-        </li>
-      <ng-template #authorizedUser>
+
+    <ul *ngIf="!isUserAuthenticated() ? true : false; else authorizedUserMenu" class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/logout" routerLinkActive="active">Log out</a>
+            <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
           </li>
-      </ng-template>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Sign In</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/signup" routerLinkActive="active">Create Account</a>
+        </li>
     </ul>
+
+    <ng-template #authorizedUserMenu>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/home/messages" routerLinkActive="active">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Log out</a>
+        </li>
+      </ul>
+    </ng-template>
+
   </div>
 </nav>
