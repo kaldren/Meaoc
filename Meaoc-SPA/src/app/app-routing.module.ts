@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home/home.component';
 import { MessagesComponent } from './components/home/messages/messages.component';
+import { LoginFormComponent } from './components/index/login-form/login-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },

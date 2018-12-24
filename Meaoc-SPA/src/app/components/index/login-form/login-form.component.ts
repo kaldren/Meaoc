@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthenticateUser } from 'src/app/interfaces/authenticate-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { LoginForm } from 'src/app/models/login-form.model';
 
 @Component({
   selector: 'app-login-form',
@@ -22,7 +22,7 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     this.formSubmitted = true;
 
-    const authenticateUser = {
+    const authenticateUser: LoginForm = {
       email: this.email,
       password: this.password,
     };
@@ -32,7 +32,7 @@ export class LoginFormComponent implements OnInit {
     console.log('Form has been submitted');
   }
 
-  login(authUser: AuthenticateUser) {
+  login(authUser: LoginForm) {
     return this.authService.authenticate(authUser).subscribe((result) => {
       localStorage.setItem('token', result.token);
       this.change.detectChanges();

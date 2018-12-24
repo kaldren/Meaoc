@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthenticateUser } from '../interfaces/authenticate-user';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
+import { LoginForm } from '../models/login-form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  authenticate(auth: AuthenticateUser): Observable<User> {
+  authenticate(auth: LoginForm): Observable<User> {
     return this.http.post<User>(this.apiAuthUrl, auth);
   }
 
