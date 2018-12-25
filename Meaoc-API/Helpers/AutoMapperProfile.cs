@@ -10,6 +10,8 @@ namespace Meaoc_API.Helpers
         {
             CreateMap<User, CreateUserDto>();
             CreateMap<CreateUserDto, User>();
+            CreateMap<UserLoggedInDto, User>();
+            CreateMap<User, UserLoggedInDto>();
         }
     }
 }

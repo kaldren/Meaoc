@@ -14,8 +14,10 @@ const homeRouting: Routes = [
       {
         path: '',
         canActivateChild: [AuthGuard],
+        component: HomeComponent,
         children: [
-          { path: 'messages', component: MessagesComponent }
+          { path: 'messages', component: MessagesComponent },
+          { path: 'home', component: HomeComponent },
         ],
       }
     ]

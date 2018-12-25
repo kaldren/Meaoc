@@ -11,6 +11,7 @@ using Meaoc_API.Data.Models;
 using Meaoc_API.Data.Repos.Interfaces;
 using Meaoc_API.Helpers;
 using Meaoc_API.Helpers.ApiResponses;
+using Meaoc_API.Helpers.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -35,11 +36,11 @@ namespace Meaoc_API.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Authenticate([FromBody] AuthenticateUserDto authenticateUserDto)
+        public IActionResult Authenticate([FromBody] LoginUserDto loginUserDto)
         {
-            var user = _authRepository.Authenticate(authenticateUserDto.Email, authenticateUserDto.Password);
+            var loggedInUser = TryLoginUserOrNull(loginUserDto);
 
-            if (user == null)
+            if (loggedInUser == null)
             {
                 return BadRequest(
                     new BaseApiResponse(HttpStatusCode.Unauthorized,
@@ -50,34 +51,24 @@ namespace Meaoc_API.Controllers
 
             }
 
-            // Map to UserDto for security
-            var userDto = _mapper.Map<UserDto>(user);
+            return Ok(loggedInUser);
+        }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+        private UserLoggedInDto TryLoginUserOrNull(LoginUserDto loginUserDto)
+        {
+            var user = _authRepository.Authenticate(loginUserDto.Email, loginUserDto.Password);
+
+            if (user == null)
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, userDto.Id.ToString())
-                }),
-                Expires = DateTime.Now.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+                return null;
+            }
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+            var loggedInUser = _mapper.Map<UserLoggedInDto>(user);
 
-            var result = new
-            {
-                Id = userDto.Id,
-                Username = userDto.Username,
-                FirstName = userDto.FirstName,
-                LastName = userDto.LastName,
-                Token = tokenString
-            };
+            Token token = new TokenGenerator().Generate(loggedInUser, _appSettings);
+            loggedInUser.Token = token.TokenString;
 
-            return Ok(result);
+            return loggedInUser;
         }
     }
 }

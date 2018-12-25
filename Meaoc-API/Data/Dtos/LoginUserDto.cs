@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Meaoc_API.Data.Dtos
 {
-    public class AuthenticateUserDto
+    public class LoginUserDto
     {
         [Required]
         public string Email { get; set; }

@@ -9,14 +9,18 @@ const routes: Routes = [
     path: '',
     loadChildren: './components/index/index.module#IndexModule'
   },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
-    path: 'home/messages',
-    component: MessagesComponent,
-    canActivate: [AuthGuard]
-  },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/index', pathMatch: 'full' }
+    path: '',
+    loadChildren: './components/home/home.module#HomeModule'
+  }
+  // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  // {
+  //   path: 'home/messages',
+  //   component: MessagesComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/index', pathMatch: 'full' }
 ];
 
 @NgModule({
