@@ -10,11 +10,13 @@ import { HomeModule } from './components/home/home.module';
 import { IndexModule } from './components/index/index.module';
 import { HomeRoutingModule } from './components/home/home-routing.module';
 import { IndexRoutingModule } from './components/index/index.routing.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -63,12 +63,10 @@ namespace Meaoc_API.Controllers
                 return null;
             }
 
-            var loggedInUser = _mapper.Map<UserLoggedInDto>(user);
+            Token token = new TokenGenerator().Generate(user, _appSettings);
+            user.Token = token.TokenString;
 
-            Token token = new TokenGenerator().Generate(loggedInUser, _appSettings);
-            loggedInUser.Token = token.TokenString;
-
-            return loggedInUser;
+            return user;
         }
     }
 }

@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from 'src/app/components/index/index/index.component';
 import { LoginFormComponent } from 'src/app/components/index/login-form/login-form.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { AboutComponent } from './about/about.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 import { IndexMenuGuard } from 'src/app/guards/index-menu.guard';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const indexRouting: Routes = [
   {
-    path: '',
+    path: 'index',
     component: IndexComponent,
     canActivate: [IndexMenuGuard],
     children: [
@@ -17,9 +17,9 @@ const indexRouting: Routes = [
         path: '',
         component: IndexComponent,
         children: [
-          { path: 'welcome', component: WelcomeComponent },
           { path: 'about', component: AboutComponent },
           { path: 'login', component: LoginFormComponent },
+          { path: 'welcome', component: WelcomeComponent }
         ]
       }
     ]

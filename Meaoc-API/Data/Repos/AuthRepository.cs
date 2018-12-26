@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Meaoc_API.Data.Dtos;
 using Meaoc_API.Data.Models;
 using Meaoc_API.Data.Repos.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,12 @@ namespace Meaoc_API.Data.Repos
     public class AuthRepository : IAuthRepository
     {
         private readonly MeaocContext _context;
+        private readonly IMapper _mapper;
 
-        public AuthRepository(MeaocContext context)
+        public AuthRepository(MeaocContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<bool> UserExists(string username)
@@ -25,7 +29,7 @@ namespace Meaoc_API.Data.Repos
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
         }
-        public User Authenticate(string email, string password)
+        public UserLoggedInDto Authenticate(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
@@ -44,7 +48,9 @@ namespace Meaoc_API.Data.Repos
                 return null;
             }
 
-            return user;
+            var loggedInUserDto  = _mapper.Map<UserLoggedInDto>(user);
+
+            return loggedInUserDto;
         }
 
         private bool VerifyPasswordhash(string password, byte[] passwordHash, byte[] passwordSalt)

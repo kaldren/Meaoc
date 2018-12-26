@@ -11,13 +11,13 @@
 
     <ul *ngIf="!isUserAuthenticated() ? true : false; else authorizedUserMenu" class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+            <a class="nav-link" routerLink="index/about" routerLinkActive="active">About</a>
           </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">Sign In</a>
+        <a class="nav-link" routerLink="index/login" routerLinkActive="active">Sign In</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" routerLink="/signup" routerLinkActive="active">Create Account</a>
+          <a class="nav-link" routerLink="index/signup" routerLinkActive="active">Create Account</a>
         </li>
     </ul>
 

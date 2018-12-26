@@ -3,24 +3,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home/home.component';
 import { MessagesComponent } from './components/home/messages/messages.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { WelcomeComponent } from './components/index/welcome/welcome.component';
+import { IndexComponent } from './components/index/index/index.component';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: './components/index/index.module#IndexModule'
+    path: 'index',
+    // loadChildren: './components/index/index.module#IndexModule'
+    component: IndexComponent
   },
   {
-    path: '',
-    loadChildren: './components/home/home.module#HomeModule'
-  }
-  // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  // {
-  //   path: 'home/messages',
-  //   component: MessagesComponent,
-  //   canActivate: [AuthGuard]
-  // },
-  // { path: '', redirectTo: '/home', pathMatch: 'full' },
-  // { path: '**', redirectTo: '/index', pathMatch: 'full' }
+    path: 'home',
+    // loadChildren: './components/home/home.module#HomeModule'
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'welcome', component: WelcomeComponent },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
