@@ -39,7 +39,7 @@ namespace Meaoc_API.Data.Repos
                 throw new InvalidLoginCredentialsException("User with that email doesn't exist");
             }
 
-            if (!VerifyPasswordhash(password, user.PasswordHash, user.PasswordSalt))
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 throw new InvalidLoginCredentialsException("Verifying the hash failed");
             }
@@ -49,7 +49,7 @@ namespace Meaoc_API.Data.Repos
             return loggedInUserDto;
         }
 
-        private bool VerifyPasswordhash(string password, byte[] passwordHash, byte[] passwordSalt)
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
             {
