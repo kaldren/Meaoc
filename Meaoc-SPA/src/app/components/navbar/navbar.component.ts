@@ -22,8 +22,8 @@ export class NavbarComponent implements OnInit {
   }
 
   isUserAuthenticated(): Observable<boolean> {
-    return this.authService.isUserAuthenticated().subscribe(x => {
-      this.isAuthenticatedUser = x;
+    return this.authService.isUserAuthenticated().subscribe(user => {
+      this.isAuthenticatedUser = user;
     });
   }
 

@@ -30,6 +30,17 @@ export class AuthService {
     );
   }
 
+  isUserNotAuthenticated(): any {
+    const tokenObj = new Token();
+    tokenObj.Token = localStorage.getItem('token');
+    tokenObj.ValidToken = false;
+    return this.validateToken(tokenObj).pipe(
+      map(res => {
+        return res['ValidToken'] === false ? true : false;
+    })
+    );
+  }
+
   private checkIfTokenExists(): boolean {
     return localStorage.getItem('token') ? true : false;
   }
