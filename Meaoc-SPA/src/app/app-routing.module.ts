@@ -6,12 +6,13 @@ import { MessagesComponent } from './components/home/messages/messages.component
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { WelcomeComponent } from './components/index/welcome/welcome.component';
 import { IndexComponent } from './components/index/index/index.component';
+import { IndexMenuGuard } from './guards/index-menu.guard';
 
 const routes: Routes = [
   {
     path: 'index',
     // loadChildren: './components/index/index.module#IndexModule'
-    component: IndexComponent
+    component: IndexComponent,
   },
   {
     path: 'home',
@@ -19,8 +20,8 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'welcome', component: WelcomeComponent },
-  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'index/welcome', component: WelcomeComponent },
+  { path: '', redirectTo: 'index/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

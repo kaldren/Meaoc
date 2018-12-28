@@ -19,7 +19,6 @@ const indexRouting: Routes = [
         children: [
           { path: 'about', component: AboutComponent },
           { path: 'login', component: LoginFormComponent },
-          { path: 'welcome', component: WelcomeComponent }
         ]
       }
     ]

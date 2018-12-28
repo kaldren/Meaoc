@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a *ngIf="!isUserAuthenticated() ? true : false; else authorizedLogoMenu" class="navbar-brand" routerLink="/welcome">Meaoc</a>
+  <a *ngIf="!isUserAuthenticated() ? true : false; else authorizedLogoMenu" class="navbar-brand" routerLink="index/welcome">Meaoc</a>
   <ng-template #authorizedLogoMenu>
     <a class="navbar-brand" routerLink="/home">Meaoc</a>
   </ng-template>
