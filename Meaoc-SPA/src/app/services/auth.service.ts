@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginForm } from '../models/login-form.model';
 import { User } from '../models/user.model';
+import { Token } from '../models/token.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiAuthUrl = 'http://localhost:5000/api/auth';
+  public isUserAuthorized = false;
 
   constructor(private http: HttpClient) { }
 
@@ -16,16 +19,28 @@ export class AuthService {
     return this.http.post<User>(this.apiAuthUrl, auth);
   }
 
-  isUserAuthenticated() {
+  isUserAuthenticated(): any {
+    const tokenObj = new Token();
+    tokenObj.Token = localStorage.getItem('token');
+    tokenObj.ValidToken = false;
+    return this.validateToken(tokenObj).pipe(
+      map(res => {
+        return res['ValidToken'] === true ? true : false;
+    })
+    );
+  }
+
+  private checkIfTokenExists(): boolean {
     return localStorage.getItem('token') ? true : false;
   }
 
-  logout(): boolean {
-    if (this.isUserAuthenticated()) {
-      localStorage.removeItem('token');
-      return true;
-    }
+  validateToken(token: Token): Observable<Token> {
+    console.log('validateToken', token.Token);
+    return this.http.post<Token>(this.apiAuthUrl + '/validatetoken', { Token: token.Token });
+  }
 
-    return false;
+  logout(): boolean {
+    localStorage.removeItem('token');
+    return true;
   }
 }

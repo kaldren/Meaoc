@@ -19,6 +19,7 @@ using Meaoc_API.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Meaoc_API.Helpers.Token;
 
 namespace Meaoc_API
 {
@@ -84,6 +85,7 @@ namespace Meaoc_API
             
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAuthRepository, AuthRepository>();
+            services.AddSingleton<ITokenValidator, TokenValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

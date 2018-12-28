@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { LoginForm } from 'src/app/models/login-form.model';
+import { Token } from 'src/app/models/token.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -9,10 +11,9 @@ import { LoginForm } from 'src/app/models/login-form.model';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-
-  formSubmitted = false;
   email: string;
   password: string;
+  @Output() isUserAuthorized = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService, private router: Router, private change: ChangeDetectorRef) { }
 
@@ -20,24 +21,21 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.formSubmitted = true;
-
     const authenticateUser: LoginForm = {
       email: this.email,
       password: this.password,
     };
 
     this.login(authenticateUser);
-
-    console.log('Form has been submitted');
   }
 
   login(authUser: LoginForm) {
     return this.authService.authenticate(authUser).subscribe((result) => {
       localStorage.setItem('token', result.token);
-      this.change.detectChanges();
-      this.router.navigate(['/home']);
+        this.isUserAuthorized.emit(true);
+        this.router.navigate(['/home']);
     }, error => {
+      this.isUserAuthorized.emit(false);
       console.log(error);
     });
   }

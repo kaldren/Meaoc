@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace Meaoc_API.Controllers
 {
@@ -26,16 +27,22 @@ namespace Meaoc_API.Controllers
     {
         private readonly IAuthRepository _authRepository;
         private readonly IMapper _mapper;
+        private readonly ITokenValidator _tokenValidator;
         private readonly AppSettings _appSettings;
 
-        public AuthController(IAuthRepository authRepository, IMapper mapper, IOptions<AppSettings> appSettings)
+        public AuthController(IAuthRepository authRepository,
+            IMapper mapper,
+            IOptions<AppSettings> appSettings,
+            ITokenValidator tokenValidator)
         {
             _authRepository = authRepository;
             _mapper = mapper;
+            _tokenValidator = tokenValidator;
             _appSettings = appSettings.Value;
         }
 
         [AllowAnonymous]
+        [HttpPost]
         public IActionResult Authenticate([FromBody] LoginUserDto loginUserDto)
         {
             var loggedInUser = TryLoginUserOrNull(loginUserDto);
@@ -67,6 +74,30 @@ namespace Meaoc_API.Controllers
             user.Token = token.TokenString;
 
             return user;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("validatetoken")]
+        public string ValidateExistingToken([FromBody] LocalStorageTokenDto tokenDto)
+        {
+            try
+            {
+                _tokenValidator.ValidateExistingUserToken(tokenDto.Token);
+                
+                return JsonConvert.SerializeObject(new LocalStorageTokenDto
+                {
+                    Token = tokenDto.Token,
+                    ValidToken = true
+                });
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(new LocalStorageTokenDto
+                {
+                    Token = "invalidtoken",
+                    ValidToken = false
+                });
+            }
         }
     }
 }

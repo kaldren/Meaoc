@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { WelcomeComponent } from './components/index/welcome/welcome.component';
 import { IndexComponent } from './components/index/index/index.component';
 import { IndexMenuGuard } from './guards/index-menu.guard';
+import { LoginFormComponent } from './components/index/login-form/login-form.component';
 
 const routes: Routes = [
   {

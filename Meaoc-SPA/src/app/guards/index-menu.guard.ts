@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -7,11 +7,13 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { Token } from '../models/token.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IndexMenuGuard implements CanActivate {
+  public isTokenValid$ = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -19,13 +21,6 @@ export class IndexMenuGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    return this.checkAuthentication();
-  }
-
-  checkAuthentication() {
-    if (this.authService.isUserAuthenticated()) {
-      return false;
-    }
-    return true;
+    return this.authService.isUserAuthenticated() ? false : true;
   }
 }

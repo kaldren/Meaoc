@@ -1,27 +1,11 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a *ngIf="!isUserAuthenticated() ? true : false; else authorizedLogoMenu" class="navbar-brand" routerLink="index/welcome">Meaoc</a>
-  <ng-template #authorizedLogoMenu>
-    <a class="navbar-brand" routerLink="/home">Meaoc</a>
-  </ng-template>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-
-    <ul *ngIf="!isUserAuthenticated() ? true : false; else authorizedUserMenu" class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" routerLink="index/about" routerLinkActive="active">About</a>
-          </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="index/login" routerLinkActive="active">Sign In</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" routerLink="index/signup" routerLinkActive="active">Create Account</a>
-        </li>
-    </ul>
-
-    <ng-template #authorizedUserMenu>
+<div id="navbar">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <ng-template [ngIf]="isAuthenticatedUser">
+      <a class="navbar-brand" routerLink="/home">Meaoc Authorized</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
@@ -35,5 +19,25 @@
       </ul>
     </ng-template>
 
-  </div>
-</nav>
+    <ng-template [ngIf]="!isAuthenticatedUser">
+      <a class="navbar-brand" routerLink="index/welcome">Meaoc</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="index/about" routerLinkActive="active">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="index/signup" routerLinkActive="active">Create Account</a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="!isAuthenticatedUser">
+      <app-login-form (isUserAuthorized)="onUserAuthorized($event)"></app-login-form>
+    </ng-template>
+  </nav>
+</div>
