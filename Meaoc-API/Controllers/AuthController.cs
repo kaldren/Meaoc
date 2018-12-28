@@ -11,6 +11,7 @@ using Meaoc_API.Data.Models;
 using Meaoc_API.Data.Repos.Interfaces;
 using Meaoc_API.Helpers;
 using Meaoc_API.Helpers.ApiResponses;
+using Meaoc_API.Helpers.Exceptions;
 using Meaoc_API.Helpers.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,9 +46,13 @@ namespace Meaoc_API.Controllers
         [HttpPost]
         public IActionResult Authenticate([FromBody] LoginUserDto loginUserDto)
         {
-            var loggedInUser = TryLoginUserOrNull(loginUserDto);
+            try
+            {
+                var loggedInUser = TryLoginUser(loginUserDto);
 
-            if (loggedInUser == null)
+                return Ok(loggedInUser);
+            }
+            catch (InvalidLoginCredentialsException e)
             {
                 return BadRequest(
                     new BaseApiResponse(HttpStatusCode.Unauthorized,
@@ -55,20 +60,13 @@ namespace Meaoc_API.Controllers
                         new Dictionary<string, string> {
                             {"Authorization", $"Invalid authorization credentials"},
                         }));
-
             }
 
-            return Ok(loggedInUser);
         }
 
-        private UserLoggedInDto TryLoginUserOrNull(LoginUserDto loginUserDto)
+        private UserLoggedInDto TryLoginUser(LoginUserDto loginUserDto)
         {
             var user = _authRepository.Authenticate(loginUserDto.Email, loginUserDto.Password);
-
-            if (user == null)
-            {
-                return null;
-            }
 
             Token token = new TokenGenerator().Generate(user, _appSettings);
             user.Token = token.TokenString;
@@ -83,7 +81,7 @@ namespace Meaoc_API.Controllers
             try
             {
                 _tokenValidator.ValidateExistingUserToken(tokenDto.Token);
-                
+
                 return JsonConvert.SerializeObject(new LocalStorageTokenDto
                 {
                     Token = tokenDto.Token,
@@ -94,7 +92,7 @@ namespace Meaoc_API.Controllers
             {
                 return JsonConvert.SerializeObject(new LocalStorageTokenDto
                 {
-                    Token = "invalidtoken",
+                    Token = "invalid_token",
                     ValidToken = false
                 });
             }

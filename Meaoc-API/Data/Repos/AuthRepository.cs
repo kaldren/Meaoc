@@ -5,6 +5,7 @@ using AutoMapper;
 using Meaoc_API.Data.Dtos;
 using Meaoc_API.Data.Models;
 using Meaoc_API.Data.Repos.Interfaces;
+using Meaoc_API.Helpers.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meaoc_API.Data.Repos
@@ -31,21 +32,16 @@ namespace Meaoc_API.Data.Repos
         }
         public UserLoggedInDto Authenticate(string email, string password)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
-            {
-                return null;
-            }
-
             var user = _context.Users.SingleOrDefault(u => u.Email == email);
 
             if (user == null)
             {
-                return null;
+                throw new InvalidLoginCredentialsException("User with that email doesn't exist");
             }
 
             if (!VerifyPasswordhash(password, user.PasswordHash, user.PasswordSalt))
             {
-                return null;
+                throw new InvalidLoginCredentialsException("Verifying the hash failed");
             }
 
             var loggedInUserDto  = _mapper.Map<UserLoggedInDto>(user);
@@ -55,26 +51,6 @@ namespace Meaoc_API.Data.Repos
 
         private bool VerifyPasswordhash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            if (password == null) 
-            {
-                throw new ArgumentNullException("Password cannot be null");
-            }
-            
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                throw new ArgumentException("Password cannot be empty or whitespace - only letters allowed");
-            }
-
-            if (passwordHash.Length != 64)
-            {
-                throw new ArgumentException("Invalid hash length. Must be 64 bytes");
-            }
-
-            if (passwordSalt.Length != 128)
-            {
-                throw new ArgumentException("Invalid password salt. Must be 128 bytes");
-            }
-
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
