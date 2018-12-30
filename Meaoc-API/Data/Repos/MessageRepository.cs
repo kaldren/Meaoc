@@ -20,9 +20,9 @@ namespace Meaoc_API.Data.Repos
             _mapper = mapper;
         }
 
-        public async Task<ViewMessageDto> GetMessageById(int id)
+        public async Task<ViewMessageDto> GetMessageById(int messageId)
         {
-            var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id  == id);
+            var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id  == messageId);
 
             var messageToReturn = _mapper.Map<ViewMessageDto>(message);
 
@@ -43,8 +43,16 @@ namespace Meaoc_API.Data.Repos
         {
             var message = _mapper.Map<Message>(createMessageDto);
             message.AuthorId = 1;
+            message.RecipientId = 2;
 
             return message;
+        }
+
+        private async Task<bool> IsMessageAuthorOrRecipient(int messageId) 
+        {
+            var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id  == messageId);
+
+            return false;
         }
     }
 }

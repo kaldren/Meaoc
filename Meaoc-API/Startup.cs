@@ -20,6 +20,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Meaoc_API.Helpers.Token;
+using System.Security.Claims;
 
 namespace Meaoc_API
 {
@@ -63,6 +64,8 @@ namespace Meaoc_API
                         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
                         var userId = int.Parse(context.Principal.Identity.Name);
                         var user = userRepository.GetById(userId);
+
+                        
 
                         if (user == null)
                         {

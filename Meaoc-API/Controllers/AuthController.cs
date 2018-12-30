@@ -54,7 +54,7 @@ namespace Meaoc_API.Controllers
             }
             catch (InvalidLoginCredentialsException)
             {
-                return BadRequest(
+                return Unauthorized(
                     new BaseApiResponse(HttpStatusCode.Unauthorized, "Invalid authorization credentials",
                         new Dictionary<string, string> {
                             {"Authorization", $"Invalid authorization credentials"},
