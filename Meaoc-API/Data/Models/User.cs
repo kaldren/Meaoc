@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Meaoc_API.Data.Models
 {
     public class User
@@ -9,5 +12,11 @@ namespace Meaoc_API.Data.Models
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+
+        [InverseProperty("Author")]
+        public List<Message> SentMessages { get; set; }
+
+        [InverseProperty("Recipient")]
+        public List<Message> ReceivedMessages { get; set; }
     }
 }

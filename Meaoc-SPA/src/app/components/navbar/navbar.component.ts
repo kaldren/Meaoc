@@ -31,17 +31,13 @@ export class NavbarComponent implements OnInit {
     const localStorageToken = localStorage.getItem('token');
 
     if (!localStorageToken) {
-      console.log('no token inside localstorage');
       return false;
     }
-
-    console.log('Local Storage: ', localStorageToken);
 
     const tokenObj = new Token();
     tokenObj.Token = localStorageToken;
 
     this.authService.validateToken(tokenObj).subscribe(res => {
-      console.log(res['ValidToken']);
       if (res['ValidToken']) {
         this.isAuthenticatedUser = true;
       }

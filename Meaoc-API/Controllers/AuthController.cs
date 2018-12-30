@@ -52,7 +52,7 @@ namespace Meaoc_API.Controllers
 
                 return Ok(loggedInUser);
             }
-            catch (InvalidLoginCredentialsException e)
+            catch (InvalidLoginCredentialsException)
             {
                 return BadRequest(
                     new BaseApiResponse(HttpStatusCode.Unauthorized, "Invalid authorization credentials",

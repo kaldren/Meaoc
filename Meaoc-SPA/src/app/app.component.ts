@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    console.log('initializing navbar component...');
     const tokenObj = new Token();
     tokenObj.Token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummttoken';
 

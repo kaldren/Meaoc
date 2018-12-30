@@ -15,7 +15,6 @@ const homeRouting: Routes = [
     children: [
       {
         path: '',
-        canActivateChild: [AuthGuard],
         component: HomeComponent,
         children: [
           { path: 'messages', component: MessagesComponent },

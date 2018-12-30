@@ -8,18 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  public isTokenValid$ = false;
-
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.isUserAuthenticated();
-  }
-
-  isUserAuthenticated() {
-    // return this.authService.isUserAuthenticated().subscribe((result) => {
-    //   this.isTokenValid$ = result['IsTokenValid'];
-    //   console.log(this.isTokenValid$);
-    // });
   }
 }

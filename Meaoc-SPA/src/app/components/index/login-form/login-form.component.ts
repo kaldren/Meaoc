@@ -2,20 +2,27 @@ import { Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter } fro
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { LoginForm } from 'src/app/models/login-form.model';
-import { Token } from 'src/app/models/token.model';
-import { Observable } from 'rxjs';
+import { AlertifyService } from 'src/app/services/alertify.service';
+
+declare let alertify: any;
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
+
+
 export class LoginFormComponent implements OnInit {
   email: string;
   password: string;
   @Output() isUserAuthorized = new EventEmitter<boolean>();
 
-  constructor(private authService: AuthService, private router: Router, private change: ChangeDetectorRef) { }
+  constructor(
+    private authService: AuthService,
+    private alertifyService: AlertifyService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
   }
@@ -33,10 +40,11 @@ export class LoginFormComponent implements OnInit {
     return this.authService.authenticate(authUser).subscribe((result) => {
       localStorage.setItem('token', result.token);
         this.isUserAuthorized.emit(true);
+        this.alertifyService.success('Logged in successfuly.');
         this.router.navigate(['/home']);
     }, error => {
       this.isUserAuthorized.emit(false);
-      console.log(error);
+      this.alertifyService.error('Wrong username / password.');
     });
   }
 

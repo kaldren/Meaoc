@@ -34,8 +34,13 @@ namespace Meaoc_API.Data.Models
             modelBuilder.Entity<User>()
                 .Property(u => u.PasswordSalt)
                 .IsRequired();
+
+            modelBuilder.Entity<Message>()
+                .Property(p => p.Content)
+                .IsRequired();
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

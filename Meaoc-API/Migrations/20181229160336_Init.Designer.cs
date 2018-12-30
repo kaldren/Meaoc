@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Meaoc_API.Migrations
 {
     [DbContext(typeof(MeaocContext))]
-    [Migration("20181219181919_Initial")]
-    partial class Initial
+    [Migration("20181229160336_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,30 @@ namespace Meaoc_API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
-            modelBuilder.Entity("Meaoc_API.Models.User", b =>
+            modelBuilder.Entity("Meaoc_API.Data.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AuthorId");
+
+                    b.Property<string>("Content")
+                        .IsRequired();
+
+                    b.Property<DateTime>("DateSent");
+
+                    b.Property<int>("RecipientId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("RecipientId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Meaoc_API.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -44,6 +67,19 @@ namespace Meaoc_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Meaoc_API.Data.Models.Message", b =>
+                {
+                    b.HasOne("Meaoc_API.Data.Models.User", "Author")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Meaoc_API.Data.Models.User", "Recipient")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

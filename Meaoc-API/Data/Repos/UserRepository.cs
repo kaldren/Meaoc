@@ -16,7 +16,7 @@ namespace Meaoc_API.Data.Repos
             _context = context;
         }
 
-        public async Task<User> Authenticate(string username, string password)
+        public Task<User> Authenticate(string username, string password)
         {
             throw new System.NotImplementedException();
         }
