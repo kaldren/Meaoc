@@ -111,7 +111,7 @@ namespace Meaoc_API
                 .AllowCredentials());
 
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseMvc().UseMvcWithDefaultRoute();
         }
     }
 }

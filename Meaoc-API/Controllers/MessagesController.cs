@@ -16,11 +16,21 @@ namespace Meaoc_API.Controllers
             _messageRepository = messageRepository;
         }
 
-        public IActionResult Create([FromBody] CreateMessageDto createMessageDto)
+        [HttpPost]
+        public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto)
         {
-            var message = _messageRepository.Create(createMessageDto);
+            var message = _messageRepository.CreateMessage(createMessageDto);
 
             return Ok(createMessageDto);
+        }
+
+        // GET api/messages/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMessageById(int id)
+        {
+            var message = await _messageRepository.GetMessageById(id);
+
+            return Ok(message);
         }
     }
 }

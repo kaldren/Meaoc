@@ -5,6 +5,7 @@ using AutoMapper;
 using Meaoc_API.Data.Dtos;
 using Meaoc_API.Data.Models;
 using Meaoc_API.Data.Repos.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Meaoc_API.Data.Repos
 {
@@ -19,7 +20,16 @@ namespace Meaoc_API.Data.Repos
             _mapper = mapper;
         }
 
-        public async Task<Message> Create(CreateMessageDto createMessageDto)
+        public async Task<ViewMessageDto> GetMessageById(int id)
+        {
+            var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id  == id);
+
+            var messageToReturn = _mapper.Map<ViewMessageDto>(message);
+
+            return messageToReturn;
+        }
+
+        public async Task<Message> CreateMessage(CreateMessageDto createMessageDto)
         {
             var message = BuildMessage(createMessageDto);
 

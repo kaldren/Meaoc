@@ -6,6 +6,7 @@ namespace Meaoc_API.Data.Repos.Interfaces
 {
     public interface IMessageRepository
     {
-         Task<Message> Create(CreateMessageDto createMessageDto);
+         Task<Message> CreateMessage(CreateMessageDto createMessageDto);
+         Task<ViewMessageDto> GetMessageById(int id);
     }
 }
