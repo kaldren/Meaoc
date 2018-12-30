@@ -2,14 +2,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <ng-template [ngIf]="isAuthenticatedUser">
       <a class="navbar-brand" routerLink="/home">Meaoc Authorized</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-        </li>
         <li class="nav-item active">
           <a class="nav-link" routerLink="/home/messages" routerLinkActive="active">Messages</a>
         </li>
@@ -17,14 +10,24 @@
           <a class="nav-link" href="javascript:void(0)" (click)="logout()">Log out</a>
         </li>
       </ul>
+      <!-- <div class="dropdown" dropdown>
+          <span class="mr-1">
+            <img src="{{photoUrl || '../../../../assets/user.png'}}" alt="">
+          </span>
+          <a class="dropdown-toggle text-light" dropdownToggle>
+            Welcome 
+          </a>
+        
+          <div class="dropdown-menu mt-3" *dropdownMenu>
+            <a class="dropdown-item" routerLink="['/home/messages']"><i class="fa fa-user"></i> Edit Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+          </div>
+        </div> -->
     </ng-template>
 
     <ng-template [ngIf]="!isAuthenticatedUser">
       <a class="navbar-brand" routerLink="index/welcome">Meaoc</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">

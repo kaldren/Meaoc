@@ -20,12 +20,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     NavbarComponent,
     LoginFormComponent,
     PageNotFoundComponent,
-    BsDropdownModule
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BsDropdownModule.forRoot(),
     HomeModule,
     HomeRoutingModule,
     IndexModule,

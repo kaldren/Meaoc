@@ -16,5 +16,10 @@ namespace Meaoc_API.Data.Models
         public int RecipientId { get; set; }
         [ForeignKey("RecipientId")]
         public User Recipient { get; set; }
+
+        public Message()
+        {
+            DateSent = DateTime.Now;
+        }
     }
 }

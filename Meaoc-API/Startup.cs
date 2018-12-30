@@ -85,6 +85,7 @@ namespace Meaoc_API
             
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAuthRepository, AuthRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddSingleton<ITokenValidator, TokenValidator>();
         }
 
