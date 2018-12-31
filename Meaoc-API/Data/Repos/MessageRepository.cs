@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -53,6 +54,15 @@ namespace Meaoc_API.Data.Repos
             var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id  == messageId);
 
             return false;
+        }
+
+        public async Task<List<ViewMessageDto>> GetAllUserMessagesReceived(int recipientId)
+        {
+            var messages = await _context.Messages.Where(p => p.RecipientId == recipientId).ToListAsync();
+
+            var messagesToReturn = _mapper.Map<List<ViewMessageDto>>(messages);
+
+            return messagesToReturn;
         }
     }
 }

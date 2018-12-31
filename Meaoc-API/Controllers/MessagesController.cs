@@ -64,6 +64,25 @@ namespace Meaoc_API.Controllers
             return Ok(message);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllUserMessagesReceived()
+        {
+            // TODO: Refactor this so it complies with SRP
+            int recipientTokenId;
+            var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
 
+            if (!isValidTokenId)
+            {
+                return Unauthorized(
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request",
+                        new Dictionary<string, string> {
+                            {"Unauthorized", $"Unauhtorized request"},
+                        }));
+            }
+
+            var messages = await _messageRepository.GetAllUserMessagesReceived(recipientTokenId);
+
+            return Ok(messages);
+        }
     }
 }
