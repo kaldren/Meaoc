@@ -51,4 +51,8 @@ export class AuthService {
     this.alertifyService.success('Thank you for visiting!');
     return true;
   }
+
+  getAccessToken() {
+    return localStorage.getItem('token');
+  }
 }

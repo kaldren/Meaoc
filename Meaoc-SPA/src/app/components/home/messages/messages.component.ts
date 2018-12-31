@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/services/messages.service';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-messages',
@@ -8,8 +10,23 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 export class MessagesComponent implements OnInit {
 
-  constructor(private messageService: MessagesService) { }
+  messagesList: any;
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    })
+  };
+
+  constructor(private messageService: MessagesService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.getAllUserMessagesReceived();
+  }
+
+  getAllUserMessagesReceived() {
+    this.messageService.getAllMessages().subscribe(result => {
+      this.messagesList = result;
+    });
   }
 }
