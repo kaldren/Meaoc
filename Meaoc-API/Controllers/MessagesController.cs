@@ -36,6 +36,7 @@ namespace Meaoc_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMessageById(int id)
         {
+            // TODO: Refactor this so it complies with SRP
             int userTokenId;
             var isValidTokenId = Int32.TryParse(User.Identity.Name, out userTokenId);
 
