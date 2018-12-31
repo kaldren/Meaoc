@@ -38,6 +38,24 @@ namespace Meaoc_API.Data.Models
             modelBuilder.Entity<Message>()
                 .Property(p => p.Content)
                 .IsRequired();
+
+            modelBuilder.Entity<Message>()
+                .Property(p => p.AuthorId)
+                .IsRequired();
+
+            modelBuilder.Entity<Message>()
+                .Property(p => p.RecipientId)
+                .IsRequired();
+
+            modelBuilder.Entity<Message>()
+                .HasOne(um => um.Author)
+                .WithMany(m => m.SentMessages)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(um => um.Recipient)
+                .WithMany(m => m.ReceivedMessages)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public DbSet<User> Users { get; set; }

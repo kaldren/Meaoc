@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Meaoc_API.Migrations
 {
     [DbContext(typeof(MeaocContext))]
-    [Migration("20181229160336_Init")]
+    [Migration("20181231170733_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

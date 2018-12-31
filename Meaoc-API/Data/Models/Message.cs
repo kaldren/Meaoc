@@ -10,11 +10,9 @@ namespace Meaoc_API.Data.Models
         public DateTime DateSent { get; set; }
 
         public int AuthorId { get; set; }
-        [ForeignKey("AuthorId")]
         public User Author { get; set; }
 
         public int RecipientId { get; set; }
-        [ForeignKey("RecipientId")]
         public User Recipient { get; set; }
 
         public Message()

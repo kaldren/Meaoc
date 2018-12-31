@@ -43,8 +43,6 @@ namespace Meaoc_API.Data.Repos
         private Message BuildMessage(CreateMessageDto createMessageDto)
         {
             var message = _mapper.Map<Message>(createMessageDto);
-            message.AuthorId = 1;
-            message.RecipientId = 2;
 
             return message;
         }
@@ -58,7 +56,7 @@ namespace Meaoc_API.Data.Repos
 
         public async Task<List<ViewMessageDto>> GetAllUserMessagesReceived(int recipientId)
         {
-            var messages = await _context.Messages.Where(p => p.RecipientId == recipientId).ToListAsync();
+            var messages = await _context.Messages.Include(p => p.Author).Where(p => p.RecipientId == recipientId).ToListAsync();
 
             var messagesToReturn = _mapper.Map<List<ViewMessageDto>>(messages);
 
