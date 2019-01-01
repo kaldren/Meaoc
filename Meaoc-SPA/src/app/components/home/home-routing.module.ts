@@ -7,6 +7,8 @@ import { MessagesComponent } from 'src/app/components/home/messages/messages.com
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { WelcomeComponent } from '../index/welcome/welcome.component';
 import { MessageDetailComponent } from './messages/messages-list/message-detail/message-detail.component';
+import { MessageCreateComponent } from './messages/message-create/message-create.component';
+import { MessagesListComponent } from './messages/messages-list/messages-list.component';
 
 const homeRouting: Routes = [
   {
@@ -18,9 +20,17 @@ const homeRouting: Routes = [
         path: '',
         component: HomeComponent,
         children: [
-          { path: 'messages', component: MessagesComponent },
-          { path: 'messages/:id', component: MessageDetailComponent },
-          { path: 'home', component: HomeComponent }
+          {
+          path: 'messages',
+          component: MessagesComponent,
+          children: [
+            { path: 'list', component: MessagesListComponent },
+            { path: 'create', component: MessageCreateComponent },
+            { path: ':id', component: MessageDetailComponent },
+            { path: '**', redirectTo: 'list' }
+          ]
+          },
+          // { path: 'home', component: HomeComponent }
         ],
       }
     ]

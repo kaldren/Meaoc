@@ -5,6 +5,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { MessagesListComponent } from './messages/messages-list/messages-list.component';
 import { MessageDetailComponent } from './messages/messages-list/message-detail/message-detail.component';
+import { MessageCreateComponent } from './messages/message-create/message-create.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MessageDetailComponent } from './messages/messages-list/message-detail/
       HomeComponent,
       MessagesComponent,
       MessagesListComponent,
-      MessageDetailComponent
+      MessageDetailComponent,
+      MessageCreateComponent
     ]
 })
 export class HomeModule { }
