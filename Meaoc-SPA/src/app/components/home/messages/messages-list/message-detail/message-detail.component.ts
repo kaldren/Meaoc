@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessagesService } from 'src/app/services/messages.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-message-detail',
