@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/services/messages.service';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MessagesService } from 'src/app/services/messages.service';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-message-detail',
@@ -7,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageDetailComponent implements OnInit {
 
-  constructor() { }
+  routeId: number;
+  message: any;
+
+  constructor(private route: ActivatedRoute, private messagesService: MessagesService, private alertifyService: AlertifyService) { }
 
   ngOnInit() {
+    this.getMessage();
+  }
+
+  getMessage() {
+    this.route.params.subscribe(params => {
+      this.routeId = params['id'];
+      this.messagesService.getMessageByid(this.routeId).subscribe(result => {
+        this.message = result;
+        console.log(this.message);
+      }, error => {
+        this.alertifyService.error(error);
+      });
+    });
   }
 
 }

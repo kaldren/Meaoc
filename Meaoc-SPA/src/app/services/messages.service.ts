@@ -21,4 +21,8 @@ export class MessagesService {
     return this.http.get<Object>(this.apiMessagesUrl, this.httpOptions);
   }
 
+  getMessageByid(id: number): Observable<Object> {
+    return this.http.get<Object>(this.apiMessagesUrl + '/' + id, this.httpOptions);
+  }
+
 }
