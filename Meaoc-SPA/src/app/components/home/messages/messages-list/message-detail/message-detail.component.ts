@@ -23,12 +23,13 @@ export class MessageDetailComponent implements OnInit {
   getMessage() {
     this.route.params.subscribe(params => {
       this.routeId = params['id'];
-      this.messagesService.getMessageByid(this.routeId).subscribe(result => {
-        this.message = result;
-        console.log(this.message);
-      }, error => {
-        this.alertifyService.error(error);
-      });
+      this.message = this.messagesService.getMessageByid(this.routeId).subscribe(
+        (result) => {
+          this.message = result;
+        },
+        error => {
+          this.alertifyService.error(error);
+        });
     });
   }
 
