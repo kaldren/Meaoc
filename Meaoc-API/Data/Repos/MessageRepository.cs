@@ -60,8 +60,11 @@ namespace Meaoc_API.Data.Repos
 
         public async Task<List<ViewMessageDto>> GetAllUserMessagesReceived(int recipientId)
         {
-            var messages = await _context.Messages.Include(p => p.Author)
-                                    .Where(p => p.RecipientId == recipientId).ToListAsync();
+            var messages = await _context.Messages
+                                    .Include(p => p.Author)
+                                    .Where(p => p.RecipientId == recipientId)
+                                    .OrderByDescending(p => p.DateSent)
+                                    .ToListAsync();
 
             var messagesToReturn = _mapper.Map<List<ViewMessageDto>>(messages);
 
