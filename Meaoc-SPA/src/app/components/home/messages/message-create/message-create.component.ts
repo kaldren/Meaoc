@@ -12,9 +12,10 @@ import { Observable } from 'rxjs';
 export class MessageCreateComponent implements OnInit {
 
   recipient: string;
+  recipientId: any;
+  isMessageSent: boolean;
   message: string;
   model: { content: string, authorId: number, recipientId: number };
-  recipientId: any;
 
   constructor(
     private messagesService: MessagesService,
@@ -51,8 +52,10 @@ export class MessageCreateComponent implements OnInit {
   private sendMessage() {
     this.messagesService.createMessage(this.model).subscribe(() => {
       this.alertifyService.success('Message sent.');
+      this.isMessageSent = true;
     }, error => {
       this.alertifyService.error('Unable to send the message. Try again later.');
+      this.isMessageSent = false;
     });
   }
 
