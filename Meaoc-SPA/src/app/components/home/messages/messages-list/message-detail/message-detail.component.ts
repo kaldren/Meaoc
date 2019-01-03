@@ -27,7 +27,7 @@ export class MessageDetailComponent implements OnInit {
           this.message = result;
         },
         error => {
-          this.alertifyService.error(error);
+          this.alertifyService.error('Unable to get that message. Try again later.');
         });
     });
   }
