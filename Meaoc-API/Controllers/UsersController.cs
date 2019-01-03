@@ -61,27 +61,27 @@ namespace Meaoc_API.Controllers
             return Ok(createUserDto);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
-        {
-            var user = await _userRepository.GetById(id);
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetUserById(int id)
+        // {
+        //     var user = await _userRepository.GetById(id);
 
-            if (user == null)
-            {
-                return BadRequest(
-                    new BaseApiResponse(HttpStatusCode.BadRequest, "Invalid user id"));
+        //     if (user == null)
+        //     {
+        //         return BadRequest(
+        //             new BaseApiResponse(HttpStatusCode.BadRequest, "Invalid user id"));
                     
-            }
+        //     }
 
-            // Map to UserDto for security
-            var userDto = _mapper.Map<UserDto>(user);
+        //     // Map to UserDto for security
+        //     var userDto = _mapper.Map<UserDto>(user);
 
-            return Ok(new
-            {
-                StatusCode = 200,
-                Data = userDto
-            });
-        }
+        //     return Ok(new
+        //     {
+        //         StatusCode = 200,
+        //         Data = userDto
+        //     });
+        // }
 
         [HttpGet("{username}")]
         public async Task<IActionResult> GetIdByUsername(string username) {

@@ -25,9 +25,9 @@ namespace Meaoc_API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto, string recipientUsername)
+        public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto)
         {
-            var message = _messageRepository.CreateMessage(createMessageDto, recipientUsername);
+            var message = _messageRepository.CreateMessage(createMessageDto);
 
             return Ok(createMessageDto);
         }

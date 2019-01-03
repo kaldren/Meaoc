@@ -14,6 +14,7 @@ export class MessageCreateComponent implements OnInit {
   recipient: string;
   message: string;
   model: {content: string, authorId: number, recipientId: number};
+  recipientId: any;
 
   constructor(
     private messagesService: MessagesService,
@@ -25,23 +26,30 @@ export class MessageCreateComponent implements OnInit {
   }
 
   onFormSubmit() {
+    this.createMessage(this.recipient);
+  }
 
-    this.model = {
-      content: this.message,
-      authorId: 1,
-      recipientId: -999, // will be initialized when sending the message in the backend
-    };
+  createMessage(username: string) {
+    this.userService.getRecipientIdByUsername(username).subscribe(result => {
+      this.recipientId = result['userId'];
 
-    this.messagesService.createMessage(this.model, this.recipient).subscribe(result => {
-      this.alertifyService.success('Message sent.');
+      this.model = {
+        content: this.message,
+        authorId: 1,
+        recipientId: this.recipientId, // will be initialized when sending the message in the backend
+      };
+      this.sendMessage();
     }, error => {
       this.alertifyService.error('Unable to send the message. Try again later.');
     });
   }
 
-  // getRecipientByUsername(username: string) {
-  //   this.userService.getRecipientIdByUsername(username).subscribe(result => {
-  //     this.recipientObject = result;
-  //   });
-  // }
+  sendMessage() {
+    this.messagesService.createMessage(this.model).subscribe(() => {
+      this.alertifyService.success('Message sent.');
+    }, error => {
+      this.alertifyService.error('Unable to send the message. Try again later.');
+    });
+  }
+ 
 }
