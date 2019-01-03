@@ -68,5 +68,10 @@ namespace Meaoc_API.Data.Repos
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
+        public Task<User> GetIdByUsername(string username)
+        {
+            return _context.Users.FirstOrDefaultAsync(p => p.Username == username);
+        }
     }
 }

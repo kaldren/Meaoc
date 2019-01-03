@@ -7,6 +7,7 @@ namespace Meaoc_API.Data.Repos.Interfaces
     {
         Task<User> Authenticate(string username, string password);
         Task<User> GetById(int id);
+        Task<User> GetIdByUsername(string username);
         Task<User> Create(User user, string password);
         void Update(User user, string password = null);
         void Delete(int id);

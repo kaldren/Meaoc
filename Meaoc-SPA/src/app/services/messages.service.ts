@@ -25,4 +25,8 @@ export class MessagesService {
     return this.http.get<Object>(this.apiMessagesUrl + '/' + id, this.httpOptions);
   }
 
+  createMessage(data: any, recipient: string): Observable<Object> {
+    return this.http.post(this.apiMessagesUrl + '/create', data, this.httpOptions);
+  }
+
 }

@@ -82,5 +82,14 @@ namespace Meaoc_API.Controllers
                 Data = userDto
             });
         }
+
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetIdByUsername(string username) {
+            var user = await _userRepository.GetIdByUsername(username);
+
+            return Ok(new {
+                userId = user.Id
+            });
+        }
     }
 }

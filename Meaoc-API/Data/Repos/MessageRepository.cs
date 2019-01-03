@@ -31,8 +31,11 @@ namespace Meaoc_API.Data.Repos
             return messageToReturn;
         }
 
-        public async Task<Message> CreateMessage(CreateMessageDto createMessageDto)
+        public async Task<Message> CreateMessage(CreateMessageDto createMessageDto, string recipientUsername)
         {
+            var recipientId = _context.Users.FirstOrDefaultAsync(p => p.Username == recipientUsername);
+            createMessageDto.RecipientId = recipientId.Id;
+
             var message = BuildMessage(createMessageDto);
 
             await _context.Messages.AddAsync(message);

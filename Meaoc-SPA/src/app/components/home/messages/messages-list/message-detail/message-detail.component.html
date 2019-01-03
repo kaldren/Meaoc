@@ -7,12 +7,10 @@
         <title>Placeholder</title>
         <rect fill="#007bff" width="100%" height="100%"></rect><text fill="#007bff" dy=".3em" x="50%" y="50%">32x32</text>
       </svg>
-      <!-- <a [routerLink]="['/home/messages', message['id']]" routerLinkActive="router-link-active" > -->
         <p *ngIf="message" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
           <strong class="d-block text-gray-dark">@{{message.authorUsername}}</strong>
           {{message.content}}
         </p>
-      <!-- </a> -->
     </div>
     <small class="d-block text-right mt-3">
       <button class="btn btn-primary">Reply</button>

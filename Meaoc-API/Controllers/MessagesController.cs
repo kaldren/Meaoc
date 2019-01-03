@@ -24,10 +24,10 @@ namespace Meaoc_API.Controllers
             _messageRepository = messageRepository;
         }
 
-        [HttpPost]
-        public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto)
+        [HttpPost("create")]
+        public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto, string recipientUsername)
         {
-            var message = _messageRepository.CreateMessage(createMessageDto);
+            var message = _messageRepository.CreateMessage(createMessageDto, recipientUsername);
 
             return Ok(createMessageDto);
         }

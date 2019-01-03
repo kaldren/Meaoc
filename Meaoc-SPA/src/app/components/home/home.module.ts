@@ -6,10 +6,12 @@ import { HomeRoutingModule } from './home-routing.module';
 import { MessagesListComponent } from './messages/messages-list/messages-list.component';
 import { MessageDetailComponent } from './messages/messages-list/message-detail/message-detail.component';
 import { MessageCreateComponent } from './messages/message-create/message-create.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     HomeRoutingModule
   ],
   declarations: [
