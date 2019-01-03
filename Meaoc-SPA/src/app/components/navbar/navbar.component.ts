@@ -48,6 +48,7 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.isAuthenticatedUser = false;
     this.router.navigate(['index/welcome']);
+    window.location.reload();
   }
 
   onUserAuthorized(authenticated: boolean) {
