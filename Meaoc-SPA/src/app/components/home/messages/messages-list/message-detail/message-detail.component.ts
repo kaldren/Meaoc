@@ -13,7 +13,10 @@ export class MessageDetailComponent implements OnInit {
   routeId: number;
   message: any;
 
-  constructor(private route: ActivatedRoute, private messagesService: MessagesService, private alertifyService: AlertifyService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private messagesService: MessagesService,
+    private alertifyService: AlertifyService) { }
 
   ngOnInit() {
     this.getMessage();

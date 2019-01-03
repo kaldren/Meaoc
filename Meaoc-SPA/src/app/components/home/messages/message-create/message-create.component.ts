@@ -29,7 +29,7 @@ export class MessageCreateComponent implements OnInit {
     this.createMessage();
   }
 
-  createMessage() {
+  private createMessage() {
     this.userService.getRecipientIdByUsername(this.recipient).subscribe(result => {
       this.recipientId = result['userId'];
 
@@ -40,7 +40,7 @@ export class MessageCreateComponent implements OnInit {
       this.alertifyService.error('Unable to send the message. Try again later.');
     });
   }
-  constructMessageModel() {
+  private constructMessageModel() {
     this.model = {
       content: this.message,
       authorId: 1,
@@ -48,7 +48,7 @@ export class MessageCreateComponent implements OnInit {
     };
   }
 
-  sendMessage() {
+  private sendMessage() {
     this.messagesService.createMessage(this.model).subscribe(() => {
       this.alertifyService.success('Message sent.');
     }, error => {
