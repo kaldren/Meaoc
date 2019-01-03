@@ -1,13 +1,31 @@
   <form (ngSubmit)="onFormSubmit()" #messageForm="ngForm">
     <div class="form-group">
-      <h3><label for="inputRecipientName">Recipient</label></h3>
-      <input [(ngModel)]="recipient" name="recipient" type="text" class="form-control" required>
+      <h3>
+        <label for="inputRecipientName">Recipient</label>
+      </h3>
+      <input 
+        [(ngModel)]="recipient"
+        name="recipient"
+        type="text"
+        class="form-control"
+        required>
     </div>
     <div class="form-group">
-      <h3><label for="exampleFormControlTextarea1">New Message</label></h3>
-      <textarea [(ngModel)]="message" name="message"  class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+      <h3>
+        <label for="exampleFormControlTextarea1">New Message</label>
+      </h3>
+      <textarea
+        [(ngModel)]="message"
+        name="message"
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        required></textarea>
     </div>
     <div class="form-group">
-      <button class="btn btn-success" type="submit" [disabled]="isMessageSent">Send</button>
+      <button
+        class="btn btn-success"
+        type="submit"
+        [disabled]="isMessageSent">Send</button>
     </div>
   </form>
