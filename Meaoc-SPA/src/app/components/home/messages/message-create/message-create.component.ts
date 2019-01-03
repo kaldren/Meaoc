@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class MessageCreateComponent implements OnInit {
 
+  btnSubmitText: string;
   recipient: string;
   recipientId: any;
   isMessageSent: boolean;
@@ -24,6 +25,7 @@ export class MessageCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.btnSubmitText = 'Send';
   }
 
   onFormSubmit() {
@@ -53,6 +55,7 @@ export class MessageCreateComponent implements OnInit {
     this.messagesService.createMessage(this.model).subscribe(() => {
       this.alertifyService.success('Message sent.');
       this.isMessageSent = true;
+      this.btnSubmitText = 'Message Sent';
     }, error => {
       this.alertifyService.error('Unable to send the message. Try again later.');
       this.isMessageSent = false;
