@@ -64,7 +64,7 @@ namespace Meaoc_API.Controllers
         // [HttpGet("{id}")]
         // public async Task<IActionResult> GetUserById(int id)
         // {
-        //     var user = await _userRepository.GetById(id);
+        //     var user = await _userRepository.GetUserById(id);
 
         //     if (user == null)
         //     {
@@ -90,6 +90,13 @@ namespace Meaoc_API.Controllers
             return Ok(new {
                 userId = user.Id
             });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsersByTerm([FromQuery(Name="term")]string term) {
+            var users = await _userRepository.GetUsersByTerm(term);
+
+            return Ok(users);
         }
     }
 }

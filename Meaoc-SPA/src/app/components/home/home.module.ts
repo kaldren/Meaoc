@@ -7,6 +7,7 @@ import { MessagesListComponent } from './messages/messages-list/messages-list.co
 import { MessageDetailComponent } from './messages/messages-list/message-detail/message-detail.component';
 import { MessageCreateComponent } from './messages/message-create/message-create.component';
 import { FormsModule } from '@angular/forms';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
       MessagesComponent,
       MessagesListComponent,
       MessageDetailComponent,
-      MessageCreateComponent
+      MessageCreateComponent,
+      UserSearchComponent
     ]
 })
 export class HomeModule { }

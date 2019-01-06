@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Meaoc_API.Data.Repos.Interfaces;
 using Meaoc_API.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Meaoc_API.Data.Repos
 {
@@ -40,9 +41,16 @@ namespace Meaoc_API.Data.Repos
             throw new System.NotImplementedException();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> GetUserById(int id)
         {
             return await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<List<User>> GetUsersByTerm(string term) 
+        {
+            return await _context.Users
+                .Where(p => p.Username.Contains(term))
+                .ToListAsync();
         }
 
         public void Update(User user, string password = null)

@@ -63,7 +63,7 @@ namespace Meaoc_API
                     {
                         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
                         var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userRepository.GetById(userId);
+                        var user = userRepository.GetUserById(userId);
 
                         
 
