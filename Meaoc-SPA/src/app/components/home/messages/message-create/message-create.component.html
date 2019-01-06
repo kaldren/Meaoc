@@ -3,7 +3,7 @@
       <h3>
         <label for="inputRecipientName">Recipient</label>
       </h3>
-      <app-user-search></app-user-search>
+      <app-user-search (recipient)="recipient = $event"></app-user-search>
     </div>
     <div class="form-group">
       <h3>
