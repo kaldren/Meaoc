@@ -35,4 +35,13 @@ export class MessageDetailComponent implements OnInit {
     });
   }
 
+  deleteMessage(id: number): void {
+    console.log(id);
+    this.messagesService.deleteMessage(id).subscribe((result) => {
+      console.log(result);
+    }, error => {
+      this.alertifyService.error(error);
+    });
+  }
+
 }

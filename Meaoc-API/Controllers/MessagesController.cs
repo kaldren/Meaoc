@@ -84,5 +84,13 @@ namespace Meaoc_API.Controllers
 
             return Ok(messages);
         }
+    
+        [HttpDelete("{id}/delete")]
+        public async Task<IActionResult> DeleteMessageById(int id) 
+        {
+            var messageToDelete = await _messageRepository.DeleteMessageById(id);
+
+            return Ok(messageToDelete);
+        }
     }
 }

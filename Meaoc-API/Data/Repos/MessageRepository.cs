@@ -50,11 +50,16 @@ namespace Meaoc_API.Data.Repos
             return message;
         }
 
-        private async Task<bool> IsMessageAuthorOrRecipient(int messageId) 
+        public async Task<DeleteMessageDto> DeleteMessageById(int id)
         {
-            var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id  == messageId);
+            var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id == id);
+            
+            _context.Messages.Remove(message);
+            await _context.SaveChangesAsync();
 
-            return false;
+            var messageToReturn = _mapper.Map<DeleteMessageDto>(message);
+        
+            return messageToReturn;
         }
 
         public async Task<List<ViewMessageDto>> GetAllUserMessagesReceived(int recipientId)

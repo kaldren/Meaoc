@@ -29,4 +29,8 @@ export class MessagesService {
     return this.http.post(this.apiMessagesUrl + '/create', data, this.httpOptions);
   }
 
+  deleteMessage(id: number): Observable<Object> {
+    return this.http.delete(this.apiMessagesUrl + '/' + id + '/delete', this.httpOptions);
+  }
+
 }
