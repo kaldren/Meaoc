@@ -28,7 +28,7 @@ export class UserService {
       return of([]);
     }
 
-    return this.http.get<UserSearch[]>(`${this.apiUsersUrl}/?name=${term}`).pipe(
+    return this.http.get<UserSearch[]>(`${this.apiUsersUrl}/?term=${term}`, this.httpOptions).pipe(
       catchError(null)
     );
 

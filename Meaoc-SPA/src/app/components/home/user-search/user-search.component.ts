@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserSearch } from 'src/app/models/user-search.model';
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
@@ -13,10 +13,13 @@ export class UserSearchComponent implements OnInit {
 
   users$: Observable<UserSearch[]>;
   private searchTerms = new Subject<string>();
+  searchBoxUsername: string;
+  isUsernameSelected = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private render: Renderer2) { }
 
   search(term: string): void {
+    this.isUsernameSelected = false;
     this.searchTerms.next(term);
   }
 
@@ -28,6 +31,11 @@ export class UserSearchComponent implements OnInit {
 
       switchMap((term: string) => this.userService.searchUser(term)
     ));
+  }
+
+  setUsername(username: string) {
+    this.isUsernameSelected = true;
+    this.searchBoxUsername = username;
   }
 
 }

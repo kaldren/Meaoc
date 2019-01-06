@@ -1,13 +1,11 @@
 <div id="search-component">
-  <h4>User Search</h4>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" [(ngModel)]="searchBoxUsername" class="form-control" />
 
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-
-  <ul class="search-result">
-    <li *ngFor="let user of users$ | async" >
-      <a routerLink="/detail/{{user.id}}">
-        {{user.name}}
-      </a>
+  <ul *ngIf="!isUsernameSelected" class="search-result">
+    <li *ngFor="let user of users$ | async" (click)="setUsername(user.username)">
+      <span>
+        {{user.username}}
+      </span>
     </li>
   </ul>
 </div>
