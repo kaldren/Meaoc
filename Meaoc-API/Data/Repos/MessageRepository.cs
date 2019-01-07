@@ -50,9 +50,19 @@ namespace Meaoc_API.Data.Repos
             return message;
         }
 
-        public async Task<DeleteMessageDto> DeleteMessageById(int id)
+        public async Task<DeleteMessageDto> DeleteMessageById(int id, int recipientTokenId)
         {
             var message = await _context.Messages.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (message.RecipientId != recipientTokenId)
+            {
+                throw new UnauthorizedAccessException("Recipient token mismatch");
+            }
+
+            if (message == null) 
+            {
+                return null;
+            }
             
             _context.Messages.Remove(message);
             await _context.SaveChangesAsync();

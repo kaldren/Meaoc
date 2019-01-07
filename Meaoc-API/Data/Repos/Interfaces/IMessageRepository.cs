@@ -9,7 +9,7 @@ namespace Meaoc_API.Data.Repos.Interfaces
     {
          Task<Message> CreateMessage(CreateMessageDto createMessageDto);
          Task<ViewMessageDto> GetMessageById(int id);
-         Task<DeleteMessageDto> DeleteMessageById(int id);
+         Task<DeleteMessageDto> DeleteMessageById(int id, int recipientTokenId);
          Task<List<ViewMessageDto>> GetAllUserMessagesReceived(int recipientId);
     }
 }

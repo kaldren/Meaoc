@@ -88,9 +88,29 @@ namespace Meaoc_API.Controllers
         [HttpDelete("{id}/delete")]
         public async Task<IActionResult> DeleteMessageById(int id) 
         {
-            var messageToDelete = await _messageRepository.DeleteMessageById(id);
+            try {
+                // TODO: Refactor this so it complies with SRP
+                int recipientTokenId;
+                var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
+                var messageToDelete = await _messageRepository.DeleteMessageById(id, recipientTokenId);
 
-            return Ok(messageToDelete);
+                
+                if (messageToDelete == null) 
+                {
+                    return BadRequest("Invalid id");
+                }
+
+                return Ok(messageToDelete);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized",
+                        new Dictionary<string, string> {
+                            {"Unauthorized", $"Unauthorized request"},
+                    }));
+            }
+
         }
     }
 }
