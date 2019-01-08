@@ -38,7 +38,7 @@ export class MessageDetailComponent implements OnInit {
 
   deleteMessage(id: number): void {
 
-    this.alertifyService.confirm('Are you sure?').set('onok', () => {
+    this.alertifyService.confirm('Are you sure you want to delete this message?').set('onok', () => {
       this.messagesService.deleteMessage(id).subscribe((result) => {
         this.alertifyService.success('Message deleted.');
         this.router.navigate(['home/messages']);
