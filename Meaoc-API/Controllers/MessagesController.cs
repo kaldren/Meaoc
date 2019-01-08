@@ -40,13 +40,10 @@ namespace Meaoc_API.Controllers
             int userTokenId;
             var isValidTokenId = Int32.TryParse(User.Identity.Name, out userTokenId);
 
-            if (!isValidTokenId)
+            if (GetTokenId() == -1)
             {
                 return Unauthorized(
-                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request",
-                        new Dictionary<string, string> {
-                            {"Unauthorized", $"Unauhtorized request"},
-                        }));
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
             }
 
             var message = await _messageRepository.GetMessageById(id);
@@ -55,10 +52,7 @@ namespace Meaoc_API.Controllers
             if (message.AuthorId != userTokenId && message.RecipientId != userTokenId)
             {
                 return Unauthorized(
-                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request",
-                        new Dictionary<string, string> {
-                            {"Unauthorized", $"Unauthorized request"},
-                        }));
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
             }
 
             return Ok(message);
@@ -71,13 +65,10 @@ namespace Meaoc_API.Controllers
             int recipientTokenId;
             var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
 
-            if (!isValidTokenId)
+            if (GetTokenId() == -1)
             {
                 return Unauthorized(
-                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request",
-                        new Dictionary<string, string> {
-                            {"Unauthorized", $"Unauhtorized request"},
-                        }));
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
             }
 
             var messages = await _messageRepository.GetAllUserMessagesReceived(recipientTokenId);
@@ -89,10 +80,8 @@ namespace Meaoc_API.Controllers
         public async Task<IActionResult> DeleteMessageById(int id) 
         {
             try {
-                // TODO: Refactor this so it complies with SRP
-                int recipientTokenId;
-                var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
-                var messageToDelete = await _messageRepository.DeleteMessageById(id, recipientTokenId);
+                var messageToDelete = await _messageRepository
+                                                .DeleteMessageById(id, GetTokenId());
 
                 
                 if (messageToDelete == null) 
@@ -105,12 +94,17 @@ namespace Meaoc_API.Controllers
             catch (UnauthorizedAccessException)
             {
                 return Unauthorized(
-                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized",
-                        new Dictionary<string, string> {
-                            {"Unauthorized", $"Unauthorized request"},
-                    }));
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
             }
 
+        }
+
+        public int GetTokenId()
+        {
+            int recipientTokenId;
+            var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
+
+            return isValidTokenId ? recipientTokenId : -1;
         }
     }
 }
