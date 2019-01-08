@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessagesService } from 'src/app/services/messages.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 
@@ -15,6 +15,7 @@ export class MessageDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private messagesService: MessagesService,
     private alertifyService: AlertifyService) { }
 
@@ -36,12 +37,16 @@ export class MessageDetailComponent implements OnInit {
   }
 
   deleteMessage(id: number): void {
-    console.log(id);
-    this.messagesService.deleteMessage(id).subscribe((result) => {
-      console.log(result);
-    }, error => {
-      this.alertifyService.error(error);
+
+    this.alertifyService.confirm('Are you sure?').set('onok', () => {
+      this.messagesService.deleteMessage(id).subscribe((result) => {
+        this.alertifyService.success('Message deleted.');
+        this.router.navigate(['home/messages']);
+      }, error => {
+        this.alertifyService.error(error);
+      });
     });
+
   }
 
 }
