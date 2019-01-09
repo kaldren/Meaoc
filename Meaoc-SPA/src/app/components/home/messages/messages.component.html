@@ -1,9 +1,12 @@
 <div class="container">
   <div class="messages-navbar row">
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-12 col-md-3 col-lg-2">
       <button [routerLink]="['/home/messages']" routerLinkActive="active" class="btn btn-primary">All Messages</button>
     </div>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-12 col-md-3 col-lg-2">
+      <button [routerLink]="['/home/messages/archive']" routerLinkActive="active" class="btn btn-info">Archive</button>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-2">
       <button [routerLink]="['/home/messages/create']" routerLinkActive="active" class="btn btn-primary">New Message</button>
     </div>
   </div>

@@ -8,6 +8,7 @@ import { MessageDetailComponent } from './messages/messages-list/message-detail/
 import { MessageCreateComponent } from './messages/message-create/message-create.component';
 import { FormsModule } from '@angular/forms';
 import { UserSearchComponent } from './user-search/user-search.component';
+import { MessageArchiveComponent } from './messages/message-archive/message-archive.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { UserSearchComponent } from './user-search/user-search.component';
       MessagesListComponent,
       MessageDetailComponent,
       MessageCreateComponent,
+      MessageArchiveComponent,
       UserSearchComponent
     ]
 })

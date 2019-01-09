@@ -9,6 +9,7 @@ import { WelcomeComponent } from '../index/welcome/welcome.component';
 import { MessageDetailComponent } from './messages/messages-list/message-detail/message-detail.component';
 import { MessageCreateComponent } from './messages/message-create/message-create.component';
 import { MessagesListComponent } from './messages/messages-list/messages-list.component';
+import { MessageArchiveComponent } from './messages/message-archive/message-archive.component';
 
 const homeRouting: Routes = [
   {
@@ -26,6 +27,7 @@ const homeRouting: Routes = [
           children: [
             { path: 'list', component: MessagesListComponent },
             { path: 'create', component: MessageCreateComponent },
+            { path: 'archive', component: MessageArchiveComponent },
             { path: ':id', component: MessageDetailComponent },
             { path: '**', redirectTo: 'list' }
           ]
