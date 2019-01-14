@@ -1,3 +1,31 @@
-<p>
-  message-reply works!
-</p>
+<form (ngSubmit)="onFormSubmit()" #messageForm="ngForm">
+  <div class="form-group">
+    <h3>
+      <label for="inputRecipientNamed">Reply</label>
+    </h3>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <input [disabled]="true" type="text" class="form-control" placeholder="{{recipient}}" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+  </div>
+  <div class="form-group">
+    <h3>
+      <label for="exampleFormControlTextarea1">Message</label>
+    </h3>
+    <textarea
+      [(ngModel)]="message"
+      name="message"
+      class="form-control"
+      id="messageTextareaId"
+      rows="3"
+      required></textarea>
+  </div>
+  <div class="form-group">
+    <button
+      class="btn btn-success"
+      type="submit"
+      [disabled]="isMessageSent">{{btnSubmitText}}</button>
+  </div>
+</form>

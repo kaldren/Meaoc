@@ -13,9 +13,10 @@
         </p>
     </div>
     <small class="d-block text-right mt-3">
-      <button class="btn btn-primary">Reply</button>
+      <button class="btn btn-primary" (click)="isReplyBtnClicked = !isReplyBtnClicked">Reply</button>
       <button class="btn btn-info ml-1 mr-1">Archive</button>
       <button class="btn btn-danger" (click)="deleteMessage(+message.id)">Delete</button>
     </small>
   </div>
+  <app-message-reply *ngIf="isReplyBtnClicked" [recipient]="message.authorUsername"></app-message-reply>
 </div>

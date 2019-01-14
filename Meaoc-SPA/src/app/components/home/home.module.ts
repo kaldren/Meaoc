@@ -9,6 +9,7 @@ import { MessageCreateComponent } from './messages/message-create/message-create
 import { FormsModule } from '@angular/forms';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { MessageArchiveComponent } from './messages/message-archive/message-archive.component';
+import { MessageReplyComponent } from './messages/messages-list/message-detail/message-reply/message-reply.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { MessageArchiveComponent } from './messages/message-archive/message-arch
       MessageDetailComponent,
       MessageCreateComponent,
       MessageArchiveComponent,
+      MessageReplyComponent,
       UserSearchComponent
     ]
 })

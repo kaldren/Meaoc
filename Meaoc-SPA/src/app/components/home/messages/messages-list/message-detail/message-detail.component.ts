@@ -12,6 +12,7 @@ export class MessageDetailComponent implements OnInit {
 
   routeId: number;
   message: any;
+  isReplyBtnClicked: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,7 @@ export class MessageDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getMessage();
+    this.isReplyBtnClicked = false;
   }
 
   getMessage() {
