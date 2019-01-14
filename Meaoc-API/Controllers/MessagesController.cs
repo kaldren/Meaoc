@@ -27,6 +27,12 @@ namespace Meaoc_API.Controllers
         [HttpPost("create")]
         public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto)
         {
+            // TODO: Refactor this so it complies with SRP
+            int userTokenId;
+            var isValidTokenId = Int32.TryParse(User.Identity.Name, out userTokenId);
+
+            createMessageDto.AuthorId = userTokenId;
+
             var message = _messageRepository.CreateMessage(createMessageDto);
 
             return Ok(createMessageDto);

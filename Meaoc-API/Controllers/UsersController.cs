@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Meaoc_API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {

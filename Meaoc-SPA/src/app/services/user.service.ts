@@ -20,7 +20,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getRecipientIdByUsername(username: string) {
-    return this.http.get(this.apiUsersUrl + '/getidbyusername/' + username, this.httpOptions);
+    return this.http.get(this.apiUsersUrl + '/' + username, this.httpOptions);
   }
 
   searchUser(term: string): Observable<UserSearch[]> {
@@ -28,7 +28,7 @@ export class UserService {
       return of([]);
     }
 
-    return this.http.get<UserSearch[]>(`${this.apiUsersUrl}/getusersbyterm/?term=${term}`, this.httpOptions).pipe(
+    return this.http.get<UserSearch[]>(`${this.apiUsersUrl}/?term=${term}`, this.httpOptions).pipe(
       catchError(null)
     );
 
