@@ -65,8 +65,6 @@ namespace Meaoc_API
                         var userId = int.Parse(context.Principal.Identity.Name);
                         var user = userRepository.GetUserById(userId);
 
-                        
-
                         if (user == null)
                         {
                             context.Fail("Unauthorized");
