@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meaoc-API", "Meaoc-API.csproj", "{9AE8B8C4-88D2-4343-99BE-4ED5316F712D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AE8B8C4-88D2-4343-99BE-4ED5316F712D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AE8B8C4-88D2-4343-99BE-4ED5316F712D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AE8B8C4-88D2-4343-99BE-4ED5316F712D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE8B8C4-88D2-4343-99BE-4ED5316F712D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {675C337C-A66B-4D17-81CE-EEEA9D33E1FD}
+	EndGlobalSection
+EndGlobal
