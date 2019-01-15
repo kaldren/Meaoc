@@ -80,7 +80,6 @@ namespace Meaoc_API.Data.Repos
                                     .OrderByDescending(p => p.DateSent)
                                     .GroupBy(p => p.AuthorId)
                                     .Select(grp => grp.First())
-                                    .OrderByDescending(p => p.DateSent)
                                     .ToListAsync();
 
             var messagesToReturn = _mapper.Map<List<ViewMessageDto>>(messages);
