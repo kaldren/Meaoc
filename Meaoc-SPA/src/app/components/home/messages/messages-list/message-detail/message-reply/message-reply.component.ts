@@ -37,7 +37,7 @@ export class MessageReplyComponent implements OnInit {
       this.constructMessageModel();
 
       this.sendMessage();
-    }, error => {
+    }, () => {
       this.alertifyService.error('Unable to send the message. Try again later.');
     });
   }
@@ -54,7 +54,7 @@ export class MessageReplyComponent implements OnInit {
       this.alertifyService.success('Message sent.');
       this.isMessageSent = true;
       this.btnSubmitText = 'Message Sent';
-    }, error => {
+    }, () => {
       this.alertifyService.error('Unable to send the message. Try again later.');
       this.isMessageSent = false;
     });

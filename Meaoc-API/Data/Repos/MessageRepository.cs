@@ -78,6 +78,8 @@ namespace Meaoc_API.Data.Repos
                                     .Include(p => p.Author)
                                     .Where(p => p.RecipientId == recipientId)
                                     .OrderByDescending(p => p.DateSent)
+                                    .GroupBy(p => p.AuthorId)
+                                    .Select(grp => grp.First())
                                     .ToListAsync();
 
             var messagesToReturn = _mapper.Map<List<ViewMessageDto>>(messages);
