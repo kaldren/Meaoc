@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Meaoc_API.Data.Repos
 {
-    public class AuthRepository : IAuthRepository
+    public class AuthService : IAuthService
     {
         private readonly MeaocContext _context;
         private readonly IMapper _mapper;
 
-        public AuthRepository(MeaocContext context, IMapper mapper)
+        public AuthService(MeaocContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

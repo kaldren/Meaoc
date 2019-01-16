@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Meaoc_API.Data.Repos.Interfaces
 {
-    public interface IAuthRepository
+    public interface IAuthService
     {
          Task<bool> UserExists(string email);
          Task<bool> EmailExists(string username);

@@ -16,13 +16,13 @@ namespace Meaoc_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IAuthRepository _authRepository;
+        private readonly IUserService _userRepository;
+        private readonly IAuthService _authRepository;
         private readonly IMapper _mapper;
 
         public UsersController(
-            IUserRepository userRepository,
-            IAuthRepository authRepository,
+            IUserService userRepository,
+            IAuthService authRepository,
             IMapper mapper)
         {
             _userRepository = userRepository;

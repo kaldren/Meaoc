@@ -17,9 +17,9 @@ namespace Meaoc_API.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        private readonly IMessageRepository _messageRepository;
+        private readonly IMessageService _messageRepository;
 
-        public MessagesController(IMessageRepository messageRepository)
+        public MessagesController(IMessageService messageRepository)
         {
             _messageRepository = messageRepository;
         }

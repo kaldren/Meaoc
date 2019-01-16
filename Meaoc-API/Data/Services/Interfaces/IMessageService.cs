@@ -5,7 +5,7 @@ using Meaoc_API.Data.Models;
 
 namespace Meaoc_API.Data.Repos.Interfaces
 {
-    public interface IMessageRepository
+    public interface IMessageService
     {
          Task<Message> CreateMessage(CreateMessageDto createMessageDto);
          Task<ViewMessageDto> GetMessageById(int id);

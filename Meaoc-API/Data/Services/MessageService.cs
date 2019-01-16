@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Meaoc_API.Data.Repos
 {
-    public class MessageRepository : IMessageRepository
+    public class MessageService : IMessageService
     {
         private readonly MeaocContext _context;
         private readonly IMapper _mapper;
 
-        public MessageRepository(MeaocContext context, IMapper mapper)
+        public MessageService(MeaocContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

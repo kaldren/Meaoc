@@ -26,12 +26,12 @@ namespace Meaoc_API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _authRepository;
+        private readonly IAuthService _authRepository;
         private readonly IMapper _mapper;
         private readonly ITokenValidator _tokenValidator;
         private readonly AppSettings _appSettings;
 
-        public AuthController(IAuthRepository authRepository,
+        public AuthController(IAuthService authRepository,
             IMapper mapper,
             IOptions<AppSettings> appSettings,
             ITokenValidator tokenValidator)

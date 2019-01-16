@@ -61,7 +61,7 @@ namespace Meaoc_API
                 {
                     OnTokenValidated = context => 
                     {
-                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
                         var userId = int.Parse(context.Principal.Identity.Name);
                         var user = userRepository.GetUserById(userId);
 
@@ -84,9 +84,9 @@ namespace Meaoc_API
                 };
             });
             
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IAuthRepository, AuthRepository>();
-            services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IMessageService, MessageService>();
             services.AddSingleton<ITokenValidator, TokenValidator>();
         }
 

@@ -15,9 +15,9 @@ namespace Meaoc_API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userRepository;
         private readonly IMapper _mapper;
-        public ValuesController(IUserRepository userRepository, IMapper mapper)
+        public ValuesController(IUserService userRepository, IMapper mapper)
         {
             _mapper = mapper;
             _userRepository = userRepository;

@@ -8,11 +8,11 @@ using System.Collections.Generic;
 
 namespace Meaoc_API.Data.Repos
 {
-    public class UserRepository : IUserRepository
+    public class UserService : IUserService
     {
         private readonly MeaocContext _context;
 
-        public UserRepository(MeaocContext context)
+        public UserService(MeaocContext context)
         {
             _context = context;
         }
