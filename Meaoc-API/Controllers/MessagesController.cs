@@ -4,12 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Meaoc_API.Domain.Dtos;
+using Meaoc_API.Domain.Models;
 using Meaoc_API.Services;
 using Meaoc_API.Helpers.ApiResponses;
 using Meaoc_API.Services.Messages;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static System.Int32;
 
 namespace Meaoc_API.Controllers
 {
@@ -28,13 +30,22 @@ namespace Meaoc_API.Controllers
         [HttpPost("create")]
         public IActionResult CreateMessage([FromBody] CreateMessageDto createMessageDto)
         {
-            // TODO: Refactor this so it complies with SRP
-            int userTokenId;
-            var isValidTokenId = Int32.TryParse(User.Identity.Name, out userTokenId);
+            var tokenId = GetTokenId();
 
-            createMessageDto.AuthorId = userTokenId;
+            if (tokenId == -1)
+            {
+                return Unauthorized(
+                    new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
+            }
 
-            var message = _messageRepository.CreateMessage(createMessageDto);
+            var message = new Message
+            {
+                AuthorId = tokenId,
+                Content = createMessageDto.Content,
+                RecipientId = createMessageDto.RecipientId
+            };
+
+            _messageRepository.CreateMessage(message);
 
             return Ok(createMessageDto);
         }
@@ -43,11 +54,9 @@ namespace Meaoc_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMessageById(int id)
         {
-            // TODO: Refactor this so it complies with SRP
-            int userTokenId;
-            var isValidTokenId = Int32.TryParse(User.Identity.Name, out userTokenId);
+            var tokenId = GetTokenId();
 
-            if (GetTokenId() == -1)
+            if (tokenId == -1)
             {
                 return Unauthorized(
                     new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
@@ -56,7 +65,7 @@ namespace Meaoc_API.Controllers
             var message = await _messageRepository.GetMessageById(id);
 
             // Only the author and the recipient are authorized to read the message
-            if (message.AuthorId != userTokenId && message.RecipientId != userTokenId)
+            if (message.AuthorId != tokenId && message.RecipientId != tokenId)
             {
                 return Unauthorized(
                     new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
@@ -68,17 +77,15 @@ namespace Meaoc_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllUserMessagesReceived()
         {
-            // TODO: Refactor this so it complies with SRP
-            int recipientTokenId;
-            var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
+            var tokenId = GetTokenId();
 
-            if (GetTokenId() == -1)
+            if (tokenId == -1)
             {
                 return Unauthorized(
                     new BaseApiResponse(HttpStatusCode.Unauthorized, "Unauthorized request"));
             }
 
-            var messages = await _messageRepository.GetAllUserMessagesReceived(recipientTokenId);
+            var messages = await _messageRepository.GetAllUserMessagesReceived(tokenId);
 
             return Ok(messages);
         }
@@ -108,8 +115,7 @@ namespace Meaoc_API.Controllers
 
         public int GetTokenId()
         {
-            int recipientTokenId;
-            var isValidTokenId = Int32.TryParse(User.Identity.Name, out recipientTokenId);
+            var isValidTokenId = TryParse(User.Identity.Name, out var recipientTokenId);
 
             return isValidTokenId ? recipientTokenId : -1;
         }

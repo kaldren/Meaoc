@@ -32,9 +32,14 @@ namespace Meaoc_API.Services.Messages
             return messageToReturn;
         }
 
-        public async Task<Message> CreateMessage(CreateMessageDto createMessageDto)
+        /// <summary>
+        /// Sends new message
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns></returns>
+        public async Task<Message> CreateMessage(Message message)
         {
-            var message = BuildMessage(createMessageDto);
+            //var message = BuildMessage(createMessageDto);
 
             await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();

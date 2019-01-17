@@ -12,8 +12,6 @@ namespace Meaoc_API.Helpers
             CreateMap<CreateUserDto, User>();
             CreateMap<UserLoggedInDto, User>();
             CreateMap<User, UserLoggedInDto>();
-            CreateMap<CreateMessageDto, Message>();
-            CreateMap<Message, CreateMessageDto>();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Meaoc_API.Services.Messages
 {
     public interface IMessageService
     {
-         Task<Message> CreateMessage(CreateMessageDto createMessageDto);
+         Task<Message> CreateMessage(Message message);
          Task<ViewMessageDto> GetMessageById(int id);
          Task<DeleteMessageDto> DeleteMessageById(int id, int recipientTokenId);
          Task<List<ViewMessageDto>> GetAllUserMessagesReceived(int recipientId);
