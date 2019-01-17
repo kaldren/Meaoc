@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Meaoc_API.Data.Repos.Interfaces;
+using Meaoc_API.Services;
 using Meaoc_API.Helpers;
-using Meaoc_API.Data.Models;
+using Meaoc_API.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Meaoc_API.Data.Dtos;
+using Meaoc_API.Domain.Dtos;
 
 namespace Meaoc_API.Controllers
 {

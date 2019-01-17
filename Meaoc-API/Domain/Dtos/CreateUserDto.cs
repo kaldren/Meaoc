@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Meaoc_API.Data.Dtos
+namespace Meaoc_API.Domain.Dtos
 {
     public class CreateUserDto
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Meaoc_API.Data.Models;
+using Meaoc_API.Domain.Models;
 
-namespace Meaoc_API.Data.Repos.Interfaces
+namespace Meaoc_API.Services
 {
     public interface IUserService
     {

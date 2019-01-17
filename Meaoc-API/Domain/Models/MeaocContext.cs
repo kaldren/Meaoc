@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Meaoc_API.Data.Models
+namespace Meaoc_API.Domain.Models
 {
     public class MeaocContext : DbContext
     {

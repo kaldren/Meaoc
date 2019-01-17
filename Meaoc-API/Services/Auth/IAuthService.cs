@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using Meaoc_API.Data.Dtos;
-using Meaoc_API.Data.Models;
+using Meaoc_API.Domain.Dtos;
+using Meaoc_API.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Meaoc_API.Data.Repos.Interfaces
+namespace Meaoc_API.Services
 {
     public interface IAuthService
     {

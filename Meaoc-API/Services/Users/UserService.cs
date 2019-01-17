@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Meaoc_API.Data.Repos.Interfaces;
-using Meaoc_API.Data.Models;
+using Meaoc_API.Services;
+using Meaoc_API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace Meaoc_API.Data.Repos
+namespace Meaoc_API.Services
 {
     public class UserService : IUserService
     {

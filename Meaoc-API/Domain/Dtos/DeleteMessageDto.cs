@@ -1,6 +1,6 @@
-namespace Meaoc_API.Data.Dtos
+namespace Meaoc_API.Domain.Dtos
 {
-    public class CreateMessageDto
+    public class DeleteMessageDto
     {
         public string Content { get; set; }
         public int AuthorId { get; set; }

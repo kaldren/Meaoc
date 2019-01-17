@@ -1,6 +1,6 @@
 using AutoMapper;
-using Meaoc_API.Data.Dtos;
-using Meaoc_API.Data.Models;
+using Meaoc_API.Domain.Dtos;
+using Meaoc_API.Domain.Models;
 
 namespace Meaoc_API.Helpers
 {

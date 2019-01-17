@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Meaoc_API.Data.Models
+namespace Meaoc_API.Domain.Models
 {
     public class User
     {

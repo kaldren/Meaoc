@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Meaoc_API.Data.Dtos;
-using Meaoc_API.Data.Models;
-using Meaoc_API.Data.Repos.Interfaces;
+using Meaoc_API.Domain.Dtos;
+using Meaoc_API.Domain.Models;
+using Meaoc_API.Services;
 using Meaoc_API.Helpers.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Meaoc_API.Data.Repos
+namespace Meaoc_API.Services
 {
     public class AuthService : IAuthService
     {
