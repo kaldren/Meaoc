@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Meaoc_API.Domain.Models;
 
-namespace Meaoc_API.Services
+namespace Meaoc_API.Services.Users
 {
     public interface IUserService
     {

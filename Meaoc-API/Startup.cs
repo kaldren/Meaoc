@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Meaoc_API.Helpers.Token;
 using System.Security.Claims;
+using Meaoc_API.Services.Auth;
+using Meaoc_API.Services.Messages;
+using Meaoc_API.Services.Users;
 
 namespace Meaoc_API
 {

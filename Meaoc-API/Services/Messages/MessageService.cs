@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Meaoc_API.Domain.Dtos;
 using Meaoc_API.Domain.Models;
-using Meaoc_API.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Meaoc_API.Services
+namespace Meaoc_API.Services.Messages
 {
     public class MessageService : IMessageService
     {

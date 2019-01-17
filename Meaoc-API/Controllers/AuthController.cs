@@ -13,6 +13,7 @@ using Meaoc_API.Helpers;
 using Meaoc_API.Helpers.ApiResponses;
 using Meaoc_API.Helpers.Exceptions;
 using Meaoc_API.Helpers.Token;
+using Meaoc_API.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
