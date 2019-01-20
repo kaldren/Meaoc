@@ -15,8 +15,11 @@ namespace Meaoc_API.Domain.Models
         public int RecipientId { get; set; }
         public User Recipient { get; set; }
 
+        public bool IsRead { get; set; }
+
         public Message()
         {
+            IsRead = false;
             DateSent = DateTime.Now;
         }
     }

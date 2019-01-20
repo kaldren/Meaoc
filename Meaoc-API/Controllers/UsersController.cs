@@ -40,21 +40,13 @@ namespace Meaoc_API.Controllers
             if (await _authRepository.EmailExists(createUserDto.Email))
             {
                  return BadRequest(
-                    new BaseApiResponse(HttpStatusCode.BadRequest, 
-                        "Email address is already taken", 
-                        new Dictionary<string, string> {
-                            {"Email", $"The email address {createUserDto.Email} is already taken"},
-                    }));
+                    new BaseApiResponse(HttpStatusCode.BadRequest,"Email address is already taken"));
             }
 
             if (await _authRepository.UserExists(createUserDto.Username))
             {
                 return BadRequest(
-                    new BaseApiResponse(HttpStatusCode.BadRequest, 
-                        "Username is already taken", 
-                        new Dictionary<string, string> {
-                            {"Username", $"The username {createUserDto.Username} is already taken"},
-                        }));
+                    new BaseApiResponse(HttpStatusCode.BadRequest, "Username is already taken"));
             }
 
             var userToCreate = _mapper.Map<User>(createUserDto);

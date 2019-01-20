@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,5 +19,20 @@ namespace Meaoc_API.Domain.Models
 
         [InverseProperty("Recipient")]
         public List<Message> ReceivedMessages { get; set; }
+
+        public User()
+        {
+            CreatePasswordHashAndSalt();
+        }
+
+        private void CreatePasswordHashAndSalt()
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                var dict = new Dictionary<byte[], byte[]>();
+                PasswordSalt = hmac.Key;
+                PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes("parola123"));
+            }
+        }
     }
 }

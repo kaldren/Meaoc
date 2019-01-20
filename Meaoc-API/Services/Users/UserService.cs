@@ -23,8 +23,7 @@ namespace Meaoc_API.Services.Users
 
         public async Task<User> Create(User user, string password)
         {
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
