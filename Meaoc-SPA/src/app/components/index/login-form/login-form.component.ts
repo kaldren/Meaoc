@@ -41,7 +41,7 @@ export class LoginFormComponent implements OnInit {
       localStorage.setItem('token', result.token);
         this.isUserAuthorized.emit(true);
         this.alertifyService.success('Logged in successfuly.');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/profile']);
     }, error => {
       this.isUserAuthorized.emit(false);
       this.alertifyService.error('Wrong username / password.');

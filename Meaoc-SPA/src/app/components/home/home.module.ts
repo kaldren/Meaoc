@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { MessageArchiveComponent } from './messages/message-archive/message-archive.component';
 import { MessageReplyComponent } from './messages/messages-list/message-detail/message-reply/message-reply.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { MessageReplyComponent } from './messages/messages-list/message-detail/m
       MessageCreateComponent,
       MessageArchiveComponent,
       MessageReplyComponent,
-      UserSearchComponent
+      UserSearchComponent,
+      ProfileComponent,
+      SidebarComponent
     ]
 })
 export class HomeModule { }

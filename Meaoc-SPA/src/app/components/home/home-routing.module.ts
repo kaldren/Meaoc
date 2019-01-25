@@ -10,6 +10,7 @@ import { MessageDetailComponent } from './messages/messages-list/message-detail/
 import { MessageCreateComponent } from './messages/message-create/message-create.component';
 import { MessagesListComponent } from './messages/messages-list/messages-list.component';
 import { MessageArchiveComponent } from './messages/message-archive/message-archive.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const homeRouting: Routes = [
   {
@@ -32,7 +33,7 @@ const homeRouting: Routes = [
             { path: '**', redirectTo: 'list' }
           ]
           },
-          // { path: 'home', component: HomeComponent }
+          { path: 'profile', component: ProfileComponent }
         ],
       }
     ]
